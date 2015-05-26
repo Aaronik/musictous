@@ -2,7 +2,7 @@ import React from 'react'
 
 var Thinger = React.createClass({
   render: function() {
-    return <div>Hello from jsx!</div>
+    return <div>Hello from jsx again!</div>
   }
 }); 
 

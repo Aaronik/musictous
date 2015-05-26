@@ -2,7 +2,10 @@ var path = require("path");
 var webpack = require("webpack");
 
 module.exports = {
-  entry: './src/js/app.js',
+  entry: [
+    // 'webpack/hot/only-dev-server'
+    './src/js/app.js'
+  ],
   context: __dirname + '/', // defaults to __dirname
   resolve: {
     root: path.join(__dirname),
@@ -22,14 +25,14 @@ module.exports = {
       {
         test: /\.js$/, 
         exclude: /node_modules/, 
-        loader: 'jsx-loader!babel-loader' 
+        loaders: ['react-hot', 'jsx-loader', 'babel-loader'] 
       },
       { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' },
       // stolen from https://github.com/petehunt/webpack-howto
       { test: /\.(png|jpg|jpeg|gif)$/, loader: 'url-loader?limit=8192' }
     ]
-  }//,
-  // plugins: [
-  //   new webpack.NoErrorsPlugin()
-  // ]
+  },
+  plugins: [
+    new webpack.NoErrorsPlugin()
+  ]
 };
