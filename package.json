@@ -1,0 +1,17 @@
+{
+  "name": "musictous",
+  "version": "0.0.0",
+  "description": "Music to Us: Web Instrument",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "music",
+    "web",
+    "react",
+    "flux"
+  ],
+  "author": "Aaron Sullivan (Aaronik)",
+  "license": "GPG"
+}
