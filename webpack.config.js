@@ -3,13 +3,16 @@ var webpack = require("webpack");
 
 module.exports = {
   entry: './src/js/app.js',
+
+  // These seem to break js as well. Maybe something with the inline script?
   // entry: {
   //   app: ['webpack/hot/dev-server', './src/js/app.js']
   // },
+  // entry: ['webpack/hot/dev-server', './src/js/app.js'],
 
   output: {
     path: './dist',
-    publicPath: '/assets/', // correlates with public path in server.js
+    publicPath: '/dist/', // correlates with public path in server.js
     filename: 'bundle.js'
   },
 
@@ -30,6 +33,7 @@ module.exports = {
         test: /\.js$/, 
         exclude: /node_modules/, 
         loaders: ['react-hot', 'jsx-loader', 'babel-loader']
+        // loaders: ['jsx-loader', 'babel-loader']
       },
       { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' },
       // stolen from https://github.com/petehunt/webpack-howto
@@ -47,6 +51,6 @@ module.exports = {
     colors: true,
     // inline: true, // seems to break js
     noInfo: true,
-    // contentBase: "dist",
+    contentBase: "./", // where index.html lives
   }
 };
