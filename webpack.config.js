@@ -2,11 +2,19 @@ var path = require("path");
 var webpack = require("webpack");
 
 module.exports = {
-  entry: [
-    // 'webpack/hot/only-dev-server'
-    './src/js/app.js'
-  ],
+  entry: './src/js/app.js',
+  // entry: {
+  //   app: ['webpack/hot/dev-server', './src/js/app.js']
+  // },
+
+  output: {
+    path: './dist',
+    publicPath: '/assets/', // correlates with public path in server.js
+    filename: 'bundle.js'
+  },
+
   context: __dirname + '/', // defaults to __dirname
+
   resolve: {
     root: path.join(__dirname),
     alias: {
@@ -15,24 +23,30 @@ module.exports = {
       style: 'src/style'
     }
   },
-  output: {
-    path: './dist',
-    publicPath: './dist/', // correlates with public path in server.js
-    filename: 'bundle.js'
-  },
+
   module: {
     loaders: [
       {
         test: /\.js$/, 
         exclude: /node_modules/, 
-        loaders: ['react-hot', 'jsx-loader', 'babel-loader'] 
+        loaders: ['react-hot', 'jsx-loader', 'babel-loader']
       },
       { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' },
       // stolen from https://github.com/petehunt/webpack-howto
       { test: /\.(png|jpg|jpeg|gif)$/, loader: 'url-loader?limit=8192' }
     ]
   },
+
   plugins: [
     new webpack.NoErrorsPlugin()
-  ]
+  ],
+
+  devServer: {
+    hot: true,
+    progress: true,
+    colors: true,
+    // inline: true, // seems to break js
+    noInfo: true,
+    // contentBase: "dist",
+  }
 };

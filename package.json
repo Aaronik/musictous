@@ -4,7 +4,7 @@
   "description": "Music to Us: Web Instrument",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --hot --progress --colors",
+    "dev": "webpack-dev-server",
     "build": "webpack --progress --colors",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
