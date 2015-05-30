@@ -47,9 +47,9 @@ module.exports = {
 
   // devServer: {
   //   hot: true,
+  //   inline: true, // seems to break js
   //   progress: true,
   //   colors: true,
-  //   // inline: true, // seems to break js
   //   noInfo: true,
   //   contentBase: "./", // where index.html lives
   // }
