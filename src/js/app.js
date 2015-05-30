@@ -9,7 +9,6 @@ var Thinger = React.createClass({
         <h2>Reactionary</h2>
         <h2>Readioactive</h2>
         <h3>Reminimizing</h3>
-        <h3>rabbit</h3>
       </div>
     )
   }

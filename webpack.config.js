@@ -32,8 +32,8 @@ module.exports = {
       {
         test: /\.js$/, 
         exclude: /node_modules/, 
-        loaders: ['react-hot', 'jsx-loader', 'babel-loader']
-        // loaders: ['jsx-loader', 'babel-loader']
+        // loaders: ['react-hot', 'jsx-loader', 'babel-loader']
+        loaders: ['jsx-loader', 'babel-loader']
       },
       { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' },
       // stolen from https://github.com/petehunt/webpack-howto
@@ -45,12 +45,12 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
 
-  devServer: {
-    hot: true,
-    progress: true,
-    colors: true,
-    // inline: true, // seems to break js
-    noInfo: true,
-    contentBase: "./", // where index.html lives
-  }
+  // devServer: {
+  //   hot: true,
+  //   progress: true,
+  //   colors: true,
+  //   // inline: true, // seems to break js
+  //   noInfo: true,
+  //   contentBase: "./", // where index.html lives
+  // }
 };
