@@ -1,0 +1,50 @@
+@import './variables.styl'
+
+.layout
+  display flex
+  justify-content space-between
+  background-color $colorBackground
+
+.matrix-container
+  width $matrixLength
+  height $matrixLength
+  background-color $blue
+
+.tone-container
+  width 5px
+  height 5px
+  background-color black
+  
+.tracks-container
+  display flex
+  
+.add-track-button-container
+  width $miniMatrixLength
+  height $miniMatrixLength
+  content '+'
+  background $blue
+  cursor pointer
+  border 1px solid $black
+
+.track-container
+  border 1px solid $black
+  
+.mini-matrix-container
+  width $miniMatrixLength
+  height $miniMatrixLength
+  background-color $blue
+  cursor pointer
+
+.track-remove-button-container
+  width $trackRemoveButtonLength
+  height $trackRemoveButtonLength
+  background-color $red
+  text-align center
+  cursor pointer
+  content 'X'
+  line-height $trackRemoveButtonLength
+
+.track-body-container
+  width $trackBodyWidth
+  height $trackBodyHeight
+  background-color $orange

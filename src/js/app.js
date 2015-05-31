@@ -1,19 +1,20 @@
-import React from 'react'
+var css = require('../styles/main.styl')
 
-var Thinger = React.createClass({
-  render: function() {
+import React from 'react'
+import Tracks from 'components/tracks'
+import Matrix from 'components/matrix'
+
+class App extends React.Component {
+  render() {
     return (
-      <div>
-        <h2>React</h2>
-        <h2>Reactive</h2>
-        <h2>Reactionary</h2>
-        <h2>Readioactive</h2>
-        <h3>Reminimizing</h3>
+      <div className='layout'>
+        <Matrix className='layout-matrix-container'/>
+        <Tracks className='layout-tracks-container'/>
       </div>
     )
   }
-}); 
+}
 
-var container = document.querySelector('.react-class');
-React.render(<Thinger />, container);
+let container = document.getElementById('container'); 
+React.render(<App/>, container);
 

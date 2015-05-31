@@ -23,6 +23,7 @@ module.exports = {
     alias: {
       assets: 'src/assets',
       js: 'src/js',
+      components: 'src/js/components',
       style: 'src/style'
     }
   },
@@ -32,7 +33,6 @@ module.exports = {
       {
         test: /\.js$/, 
         exclude: /node_modules/, 
-        // loaders: ['react-hot', 'jsx-loader', 'babel-loader']
         loaders: ['jsx-loader', 'babel-loader']
       },
       { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' },
