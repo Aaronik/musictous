@@ -3,25 +3,29 @@ import Tone from 'components/tone'
 import _ from 'underscore'
 
 class TableRow extends React.Component {
+  _generateRow() {
+    return _(16).times(idx => {
+      return <td><Tone key={`tone-${idx}`}/></td>;
+    });
+  }
+
   render() {
-    return (
-      <tr>
-        _(16).times(idx => {
-          return <td><Tone key={`tone-${idx}`}/></td>;
-        });
-      </tr>
-    )
+    return <tr>{this._generateRow()}</tr>
   }
 }
 
 class Table extends React.Component {
+  _generateTable() {
+    return _(16).times(idx => {
+      return <TableRow key={`table-row-${idx}`}/>
+    });
+  }
+
   render() {
     return (
       <table>
         <tbody>
-          _(16).times(idx => {
-            return <TableRow key={`table-row-${idx}`}/>
-          });
+          {this._generateTable()}
         </tbody>
       </table>
     )
@@ -32,7 +36,7 @@ class Matrix extends React.Component {
   render() {
     return (
       <div className='matrix-container'>
-        <table/>
+        <Table/>
       </div>
     )
   }

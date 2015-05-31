@@ -11,9 +11,14 @@
   background-color $blue
 
 .tone-container
-  width 5px
-  height 5px
-  background-color black
+  width 27px
+  height 27px
+  background-color $green
+  cursor pointer
+  transition all 0.3s
+  
+  &:hover
+    background-color $black
   
 .tracks-container
   display flex
@@ -21,10 +26,14 @@
 .add-track-button-container
   width $miniMatrixLength
   height $miniMatrixLength
-  content '+'
   background $blue
   cursor pointer
   border 1px solid $black
+  text-align center
+  line-height $miniMatrixLength
+
+  &:after
+    content '+'
 
 .track-container
   border 1px solid $black
@@ -41,8 +50,10 @@
   background-color $red
   text-align center
   cursor pointer
-  content 'X'
   line-height $trackRemoveButtonLength
+
+  &:after
+    content 'X'
 
 .track-body-container
   width $trackBodyWidth

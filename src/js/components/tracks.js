@@ -9,6 +9,7 @@ class Tracks extends React.Component {
         <AddTrackButton/>
         <Track/>
         <Track/>
+        <Track/>
       </div>
     )
   }
