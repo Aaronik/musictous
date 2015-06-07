@@ -16,17 +16,25 @@ function toBinary (basedNum) {
 
 }
 
-function binaryToBytes (binary) {
-  if (binary.length != 256) throw new Error('binaryToBytes can only work on 256 bit strings')
+function binaryToChunks (binary) {
+  // probs aint necessary with 6 bit chunks
+  if (binary.length != 256) throw new Error('binaryToChunks can only work on 256 bit strings')
 
-  return _(32).times(seg => {
-    let first = seg * 8;
-    let last = first + 8;
-    return binary.slice(first, last);
-  })
+  let binaryDup = binary.slice();
+  let remainingLength = binaryDup.length;
+  
+  let chunks = []
+  for (var seg = 0; remainingLength > 0; seg++) {
+    let first = seg * 6;
+    let last = first + 6;
+    chunks.push(binaryDup.slice(first, last));
+    remainingLength -= 6;
+  }
+
+  return chunks;
 }
 
-function byteToCharIdx (bite) {
+function chunkToCharIdx (bite) {
   let reversedByteArr = bite.split('').reverse();
   return reversedByteArr.reduce( (acc, bit, idx) => {
     return acc + (bit * Math.pow(2, idx));
@@ -34,17 +42,10 @@ function byteToCharIdx (bite) {
 }
 
 function binaryTo64 (binary) {
-  // acceptable characters to use in URL (hoping for 64)
-  // nums (10)
-  // lowercase (26)
-  // uppercase (26)
-  // 62
-  // ~ and -
-  // 64
-  let bytes = binaryToBytes(binary);
-  let charIndices = bytes.map(byteToCharIdx);
+  let chunks = binaryToChunks(binary);
+  let charIndices = chunks.map(chunkToCharIdx);
   let chars = charIndices.map((idx) => {return eightBitChars[idx]});
-  return chars
+  return chars.join('');
 }
 
 console.log(binaryTo64("0000000010110100101101001011010010110100101101001011010010110100101101001011010010110100101101001011010010110100101101001011010010110100101101001011010010110100101101001011010010110100101101001011010010110100101101001011010010110100101101001011010010110100"));
