@@ -5,7 +5,7 @@ import _ from 'underscore'
 class TableRow extends React.Component {
   _generateRow() {
     return _(16).times(idx => {
-      return <td><Tone key={`tone-${idx}`}/></td>;
+      return <td key={`tone-${idx}`}><Tone/></td>;
     });
   }
 
