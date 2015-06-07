@@ -10,16 +10,43 @@ import URL from 'url-parse'
 
 var url = new URL(window.location.toString(), true);
 
-const eightBitChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '-', '_']
+const sixBitChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '-', '_']
 
-function toBinary (basedNum) {
+function base10ToBinary (num, chunkSize = 6) {
+  let numDup = Math.floor(num);
 
+  let chunk = '';
+
+  // convert to reversed binary
+  while (numDup) {
+    chunk += (numDup % 2) ? '1' : '0'
+    numDup = Math.floor(numDup / 2);
+  }
+
+  // make sure reversed binary has correct precision
+  while (chunk.length < chunkSize) {
+    chunk += '0';
+  }
+
+  // reverse and return binary literal
+  return chunk.split('').reverse().join('');
+}
+
+function decode (basedNum, desiredNumBits = 256) {
+  let basedNumArr = basedNum.split('');
+  let basedNumIdxArr = basedNumArr.map( char => {
+    return sixBitChars.indexOf(char);
+  });
+  return basedNumIdxArr.map( (num, idx) => {
+    if (idx == (basedNum.length - 1)) { // last num (handle 6 bit roundoff issue)
+      return base10ToBinary(num, (desiredNumBits % 6));
+    } else {
+      return base10ToBinary(num, 6)
+    }
+  }).join('');
 }
 
 function binaryToChunks (binary) {
-  // probs aint necessary with 6 bit chunks
-  if (binary.length != 256) throw new Error('binaryToChunks can only work on 256 bit strings')
-
   let binaryDup = binary.slice();
   let remainingLength = binaryDup.length;
   
@@ -41,14 +68,20 @@ function chunkToCharIdx (bite) {
   }, 0);
 }
 
-function binaryTo64 (binary) {
+function encode (binary) {
   let chunks = binaryToChunks(binary);
   let charIndices = chunks.map(chunkToCharIdx);
-  let chars = charIndices.map((idx) => {return eightBitChars[idx]});
+  let chars = charIndices.map((idx) => {return sixBitChars[idx]});
   return chars.join('');
 }
 
-console.log(binaryTo64("0000000010110100101101001011010010110100101101001011010010110100101101001011010010110100101101001011010010110100101101001011010010110100101101001011010010110100101101001011010010110100101101001011010010110100101101001011010010110100101101001011010010110100"));
+var edString = '111111000000';
+console.log('edStrin:', edString);
+var encodedString = encode(edString);
+console.log('encoded:', encodedString);
+var decodedString = decode(encodedString, edString.length);
+console.log('decoded:', decodedString);
+console.log('same:', edString == decodedString);
 
 function tracksFromQuery (queryObj) {
   // takes {1: "5.23", 2: "2.1", etc.} (?1=5.23&2=2.1)
