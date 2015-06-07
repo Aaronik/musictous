@@ -23,7 +23,7 @@ class Table extends React.Component {
 
   render() {
     return (
-      <table>
+      <table className='matrix-table'>
         <tbody>
           {this._generateTable()}
         </tbody>
