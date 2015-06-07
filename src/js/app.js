@@ -39,7 +39,8 @@ function decode (basedNum, desiredNumBits = 256) {
   });
   return basedNumIdxArr.map( (num, idx) => {
     if (idx == (basedNum.length - 1)) { // last num (handle 6 bit roundoff issue)
-      return base10ToBinary(num, (desiredNumBits % 6));
+      // if desiredNumBits % 6 == 0, we're really on the last bit and we want 6
+      return base10ToBinary(num, (desiredNumBits % 6) || 6);
     } else {
       return base10ToBinary(num, 6)
     }
@@ -75,7 +76,7 @@ function encode (binary) {
   return chars.join('');
 }
 
-var edString = '111111000000';
+var edString = '1101011000101101001011010010110111010110001011010010110100101101110101100010110100101101001011011101011000101101001011010010110111010110001011010010110100101101110101100010110100101101001011011101011000101101001011010010110111010110001011010010110100101101';
 console.log('edStrin:', edString);
 var encodedString = encode(edString);
 console.log('encoded:', encodedString);
