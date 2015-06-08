@@ -38,14 +38,13 @@ function getTracks() {
 var App = React.createClass({
   getInitialState() {
     return {
-      tracks: null
+      tracks: getTracks()
     }
   },
 
   componentDidMount() {
     window.addEventListener('message', (event) => {
-      if (event.data == 'pushstate') return;
-      console.log('message', args);
+      if (event.data != 'pushstate') return;
       this.setState({tracks: getTracks()});
     })
   },
