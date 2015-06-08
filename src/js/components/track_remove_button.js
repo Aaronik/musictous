@@ -1,6 +1,6 @@
 import React from 'react'
 
-class TrackRemoveButton extends React.Component {
+var TrackRemoveButton = React.createClass({
   render() {
     return (
       <div className='track-remove-button-container'>
@@ -8,6 +8,6 @@ class TrackRemoveButton extends React.Component {
       </div>
     )
   }
-}
+});
 
 export default TrackRemoveButton

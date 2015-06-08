@@ -35,12 +35,12 @@ function getTracks() {
 }
 
 
-class App extends React.Component {
+var App = React.createClass({
   getInitialState() {
     return {
       tracks: null
     }
-  }
+  },
 
   componentDidMount() {
     window.addEventListener('message', (event) => {
@@ -48,7 +48,7 @@ class App extends React.Component {
       console.log('message', args);
       this.setState({tracks: getTracks()});
     })
-  }
+  },
 
   render() {
     return (
@@ -63,7 +63,7 @@ class App extends React.Component {
       </div>
     )
   }
-}
+});
 
 let container = document.getElementById('container'); 
 

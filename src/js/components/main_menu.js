@@ -1,13 +1,13 @@
 import React from 'react'
 import { PlayButton, StopButton, ClearAllButton } from 'components/buttons'
 
-class MainMenu extends React.Component {
+var MainMenu = React.createClass({
   propTypes: {
-    id: React.DOM.string.isRequired,
+    id: React.PropTypes.string.isRequired,
     // TODO: Make custom binary string propType
     tones: React.PropTypes.string.isRequired, // binary
     slots: React.PropTypes.string.isRequired // binary
-  }
+  },
 
   render() {
     return (
@@ -20,6 +20,6 @@ class MainMenu extends React.Component {
       </div>
     )
   }
-}
+});
 
 export default MainMenu

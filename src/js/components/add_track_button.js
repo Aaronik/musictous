@@ -1,6 +1,6 @@
 import React from 'react'
 
-class AddTrackButton extends React.Component {
+var AddTrackButton = React.createClass({
   render() {
     return (
       <div className='add-track-button-container'>
@@ -8,6 +8,6 @@ class AddTrackButton extends React.Component {
       </div>
     )
   }
-}
+});
 
 export default AddTrackButton

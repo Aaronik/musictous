@@ -1,9 +1,9 @@
 import React from 'react'
 
-class TrackBody extends React.Component {
+var TrackBody = React.createClass({
   propTypes: {
     slots: React.PropTypes.string.isRequired
-  }
+  },
 
   render() {
     console.log(`track body receiving ${this.props.slots.length} slots`)
@@ -12,6 +12,6 @@ class TrackBody extends React.Component {
       <div className='track-body-container'></div>
     )
   }
-}
+});
 
 export default TrackBody

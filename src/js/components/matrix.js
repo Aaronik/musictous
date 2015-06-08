@@ -2,24 +2,24 @@ import React from 'react'
 import Tone from 'components/tone'
 import _ from 'underscore'
 
-class TableRow extends React.Component {
+var TableRow = React.createClass({
   _generateRow() {
     return _(16).times(idx => {
       return <td key={`tone-${idx}`}><Tone/></td>;
     });
-  }
+  },
 
   render() {
     return <tr>{this._generateRow()}</tr>
   }
-}
+});
 
-class Table extends React.Component {
+var Table = React.createClass({
   _generateTable() {
     return _(16).times(idx => {
       return <TableRow key={`table-row-${idx}`}/>
     });
-  }
+  },
 
   render() {
     return (
@@ -30,9 +30,9 @@ class Table extends React.Component {
       </table>
     )
   }
-}
+});
 
-class Matrix extends React.Component {
+var Matrix = React.createClass({
   render() {
     return (
       <div className='matrix-container'>
@@ -40,6 +40,6 @@ class Matrix extends React.Component {
       </div>
     )
   }
-}
+});
 
 export default Matrix

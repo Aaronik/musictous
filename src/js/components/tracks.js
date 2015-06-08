@@ -2,10 +2,10 @@ import React from 'react'
 import Track from 'components/track'
 import AddTrackButton from 'components/add_track_button'
 
-class Tracks extends React.Component {
+var Tracks = React.createClass({
   propTypes: {
     tracks: React.PropTypes.array.isRequired
-  }
+  },
 
   render() {
     return (
@@ -15,6 +15,6 @@ class Tracks extends React.Component {
       </div>
     )
   }
-}
+});
 
 export default Tracks
