@@ -6,8 +6,6 @@ var MiniMatrix = React.createClass({
   },
 
   render() {
-    console.log(`mini-matrix receiving ${this.props.tones.length} tones`);
-
     return (
       <div className='mini-matrix-container'></div>
     )

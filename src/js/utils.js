@@ -1,4 +1,7 @@
+import _ from 'underscore'
 import URL from 'url-parse'
+import React from 'react'
+import Track from 'components/track'
 
 const SIX_BUT_CHARS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '-', '_']
 
@@ -44,21 +47,28 @@ function chunkToBase10 (bite) {
   }, 0);
 }
 
-function tracksFromQuery (queryObj) {
-  // takes {1: "5.23", 2: "2.1", etc.} (?1=5.23&2=2.1)
-  // returns [{ t: 23, s: 3 }, { t: 1, s: 5 }, ...]
-  let tracks = [];
-  // for (let [id, infoString] of queryObj) { // wts?
+function trackObjectsFromQuery (queryObj) {
+  let trackObjects = [];
   let ids = Object.keys(queryObj);
-  ids.forEach(id => {
+
+  return ids.map( (id) => {
     let infoString = queryObj[id];
     let [encodedTones, encodedslots] = infoString.split('.');
     let tones = utils.decode(encodedTones, 256);
     let slots = utils.decode(encodedslots, 8);
-    tracks.push(<Track key={`track-${id}`} id={id} tones={tones} slots={slots}/>);
+    return { id, tones, slots };
   });
+}
 
-  return tracks;
+function url() {
+  return new URL(window.location.toString(), true);
+}
+
+function tracksFromTrackObjects (trackObjects) {
+  return trackObjects.map( (trackObject) => {
+    let { id, tones, slots } = trackObject;
+    return <Track key={`track-${id}`} id={id} tones={tones} slots={slots}/>;
+  })
 }
 
 function encode (binary) {
@@ -84,10 +94,21 @@ function decode (basedNum, desiredNumBits = 256) {
 }
 
 function getTracksFromUrl() {
-  var url = new URL(window.location.toString(), true);
-  console.log('detecting query params:', url.query);
-  var tracks = tracksFromQuery(url.query);
+  // console.log('detecting query params:', url().query);
+  var trackObjects = trackObjectsFromQuery(url().query);
+  var tracks = tracksFromTrackObjects(trackObjects);
   return tracks;
+}
+
+function generateTrackId() {
+  var usedIds = _.pluck(trackObjectsFromQuery(url().query), 'id')
+    .map( (strId) => {
+      return parseInt(strId);
+    });
+
+  // major hack?
+  for (var newId = 0; _.contains(usedIds, newId); newId++) {}
+  return newId;
 }
 
 // TODO: Make tests for this
@@ -99,6 +120,6 @@ function getTracksFromUrl() {
 // console.log('decoded:', decodedString);
 // console.log('same:', edString == decodedString);
 
-let utils = { encode, decode, getTracksFromUrl }
+let utils = { encode, decode, getTracksFromUrl, generateTrackId }
 
 export default utils

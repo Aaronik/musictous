@@ -1,5 +1,6 @@
+import utils from 'js/utils'
+
 function navTo (url) {
-  console.log('navving to ', url)
   window.history.pushState({}, '', url);
   window.postMessage('pushstate', '*');
 }
@@ -14,7 +15,8 @@ function addFrag (frag) {
 
 var actions = {
   addTrack() {
-    addFrag('2=fjdiwnckduytwojsvzUGSTPlqu_oqhs-ajfiejd7di8.');
+    let trackId = utils.generateTrackId();
+    addFrag(trackId + '=0000000000000000000000000000000000000000000.');
   }
 }
 

@@ -12,6 +12,10 @@ var Tracks = React.createClass({
     actions.addTrack();
   },
 
+  removeTrackHandler (trackId) {
+
+  },
+
   render() {
     return (
       <div className='tracks-container'>

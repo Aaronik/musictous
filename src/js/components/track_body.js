@@ -6,8 +6,6 @@ var TrackBody = React.createClass({
   },
 
   render() {
-    console.log(`track body receiving ${this.props.slots.length} slots`)
-
     return (
       <div className='track-body-container'></div>
     )
