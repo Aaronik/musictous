@@ -1,6 +1,9 @@
 @import './variables.styl'
 
-.layout
+*
+  transition all 0.3s
+
+.layout-row
   display flex
   justify-content space-between
   background-color $colorBackground
@@ -60,3 +63,20 @@
   width $trackBodyWidth
   height $trackBodyHeight
   background-color $orange
+  
+.main-menu-container
+  display flex
+  align-items flex-end
+  width 100%
+  height $mainMenuHeight
+
+.main-menu-inner
+  display flex
+  justify-content space-around
+  background $red
+  width 250px
+  font-size 40px
+  
+  & > i
+    cursor pointer
+  

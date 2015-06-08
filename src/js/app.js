@@ -4,6 +4,7 @@ import React from 'react'
 import Track from 'components/track'
 import Tracks from 'components/tracks'
 import Matrix from 'components/matrix'
+import MainMenu from 'components/main_menu'
 import URL from 'url-parse'
 import utils from 'js/utils'
 
@@ -30,9 +31,14 @@ var tracks = tracksFromQuery(url.query);
 class App extends React.Component {
   render() {
     return (
-      <div className='layout'>
-        <Matrix className='layout-matrix-container'/>
-        <Tracks className='layout-tracks-container' tracks={tracks}/>
+      <div>
+        <div className='layout-row'>
+          <Matrix className='layout-matrix-container'/>
+          <Tracks className='layout-tracks-container' tracks={tracks}/>
+        </div>
+        <div className='layout-row'>
+          <MainMenu className='layout-main-menu-container'/>
+        </div>
       </div>
     )
   }
