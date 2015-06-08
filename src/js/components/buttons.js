@@ -1,9 +1,14 @@
 import React from 'react'
 
 class PlayButton extends React.Component {
+  onClick() {
+    window.history.pushState({}, '', '/?1=fjdiwnckduytwojsvzUGSTPlqu_oqhs-ajfiejd7di8.5')
+    window.postMessage('pushstate', '*')
+  }
+
   render() {
     return (
-      <i className='fa fa-play'></i>
+      <i className='fa fa-play' onClick={this.onClick}></i>
     )
   }
 }
@@ -17,9 +22,14 @@ class PauseButton extends React.Component {
 }
 
 class StopButton extends React.Component {
+  onClick() {
+    window.history.pushState({}, '', '/')
+    window.postMessage('pushstate', '*')
+  }
+
   render() {
     return (
-      <i className='fa fa-stop'></i>
+      <i className='fa fa-stop' onClick={this.onClick}></i>
     )
   }
 }

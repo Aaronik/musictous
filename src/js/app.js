@@ -1,6 +1,8 @@
 var css = require('../styles/main.styl')
 
 import React from 'react'
+// import Router from 'react-router'
+// import { Route } from 'react-router'
 import Track from 'components/track'
 import Tracks from 'components/tracks'
 import Matrix from 'components/matrix'
@@ -25,16 +27,35 @@ function tracksFromQuery (queryObj) {
   return tracks;
 }
 
-var url = new URL(window.location.toString(), true);
-var tracks = tracksFromQuery(url.query);
+function getTracks() {
+  var url = new URL(window.location.toString(), true);
+  console.log('detecting query params:', url.query);
+  var tracks = tracksFromQuery(url.query);
+  return tracks;
+}
+
 
 class App extends React.Component {
+  getInitialState() {
+    return {
+      tracks: null
+    }
+  }
+
+  componentDidMount() {
+    window.addEventListener('message', (event) => {
+      if (event.data == 'pushstate') return;
+      console.log('message', args);
+      this.setState({tracks: getTracks()});
+    })
+  }
+
   render() {
     return (
       <div>
         <div className='layout-row'>
           <Matrix className='layout-matrix-container'/>
-          <Tracks className='layout-tracks-container' tracks={tracks}/>
+          <Tracks className='layout-tracks-container' tracks={this.state.tracks}/>
         </div>
         <div className='layout-row'>
           <MainMenu className='layout-main-menu-container'/>
@@ -45,5 +66,14 @@ class App extends React.Component {
 }
 
 let container = document.getElementById('container'); 
+
+// var routes = (
+//   <Route name='main' path='/' handler={App}></Route>
+// )
+
+// Router.run(routes, Router.HistoryLocation, (Handler, state) => {
+//   React.render(<Handler params={state.params} query={state.query}/>, container);
+// });
+
 React.render(<App/>, container);
 
