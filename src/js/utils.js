@@ -1,7 +1,5 @@
 import _ from 'underscore'
 import URL from 'url-parse'
-import React from 'react'
-import Track from 'components/track'
 
 const SIX_BUT_CHARS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '-', '_']
 
@@ -64,13 +62,6 @@ function url() {
   return new URL(window.location.toString(), true);
 }
 
-function tracksFromTrackObjects (trackObjects) {
-  return trackObjects.map( (trackObject) => {
-    let { id, tones, slots } = trackObject;
-    return <Track key={`track-${id}`} id={id} tones={tones} slots={slots}/>;
-  })
-}
-
 function encode (binary) {
   let chunks = binaryToChunks(binary);
   let charIndices = chunks.map(chunkToBase10);
@@ -95,9 +86,7 @@ function decode (basedNum, desiredNumBits = 256) {
 
 function getTracksFromUrl() {
   // console.log('detecting query params:', url().query);
-  var trackObjects = trackObjectsFromQuery(url().query);
-  var tracks = tracksFromTrackObjects(trackObjects);
-  return tracks;
+  return trackObjectsFromQuery(url().query);
 }
 
 function generateTrackId() {

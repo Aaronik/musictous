@@ -12,16 +12,24 @@ import utils from 'js/utils'
 var App = React.createClass({
   getInitialState() {
     return {
-      tracks: utils.getTracksFromUrl()
-    }
+      tracks: this._buildTracks()
+    };
+  },
+
+  _buildTracks() {
+    let tracks = utils.getTracksFromUrl();
+    return tracks.map( (track) => {
+      let { id, tones, slots } = track;
+      return <Track key={`track-${id}`} id={id} tones={tones} slots={slots}/>;
+    });
   },
 
   componentDidMount() {
     // TODO: move to actions? actions.listenForUrlChange (event) => ...
     window.addEventListener('message', (event) => {
       if (event.data != 'pushstate') return;
-      this.setState({tracks: utils.getTracksFromUrl()});
-    })
+      this.setState({tracks: this._buildTracks()});
+    });
   },
 
   render() {
