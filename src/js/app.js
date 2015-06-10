@@ -1,34 +1,27 @@
 var css = require('../styles/main.styl')
 
 import React from 'react'
-// import Router from 'react-router'
-// import { Route } from 'react-router'
 import Track from 'components/track'
 import Tracks from 'components/tracks'
 import Matrix from 'components/matrix'
 import MainMenu from 'components/main_menu'
 import utils from 'js/utils'
 
+// let's call a track data
+// track = { id: string, tones: bin string, slots: bin string }
+
 var App = React.createClass({
   getInitialState() {
     return {
-      tracks: this._buildTracks()
+      tracks: utils.getTracksFromUrl()
     };
   },
 
-  _buildTracks() {
-    let tracks = utils.getTracksFromUrl();
-    return tracks.map( (track) => {
-      let { id, tones, slots } = track;
-      return <Track key={`track-${id}`} id={id} tones={tones} slots={slots}/>;
-    });
-  },
-
-  componentDidMount() {
+  componentWillMount() {
     // TODO: move to actions? actions.listenForUrlChange (event) => ...
     window.addEventListener('message', (event) => {
       if (event.data != 'pushstate') return;
-      this.setState({tracks: this._buildTracks()});
+      this.setState({ tracks: utils.getTracksFromUrl() });
     });
   },
 

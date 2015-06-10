@@ -5,7 +5,11 @@ import actions from 'js/actions'
 
 var Tracks = React.createClass({
   propTypes: {
-    tracks: React.PropTypes.array.isRequired
+    tracks: React.PropTypes.arrayOf(React.PropTypes.shape({
+      id: React.PropTypes.string,
+      tones: React.PropTypes.string,
+      slots: React.PropTypes.string
+    })).isRequired
   },
 
   addTrackHandler() {
@@ -16,11 +20,18 @@ var Tracks = React.createClass({
 
   },
 
+  _renderTracks () {
+    return this.props.tracks.map( (track) => {
+      let { id, tones, slots } = track;
+      return <Track key={id} id={id} tones={tones} slots={slots}/>
+    });
+  },
+
   render() {
     return (
       <div className='tracks-container'>
         <AddTrackButton onClick={this.addTrackHandler}/>
-        {this.props.tracks}
+        {this._renderTracks()} 
       </div>
     )
   }
