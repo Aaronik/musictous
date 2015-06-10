@@ -35,10 +35,12 @@ var Table = React.createClass({
 
 var Matrix = React.createClass({
   propTypes: {
-    track: propTypes.track.isRequired
+    tones: propTypes.binaryString
   },
 
   render() {
+    if (!this.props.tones) return <div className='blank-matrix'></div>
+
     return (
       <div className='matrix-container'>
         <Table/>

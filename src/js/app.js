@@ -12,25 +12,38 @@ import utils from 'js/utils'
 
 var App = React.createClass({
   getInitialState() {
+    let tracks = utils.getTracksFromUrl();
+
     return {
-      tracks: utils.getTracksFromUrl()
+      tracks: tracks,
+      currentTrack: tracks[0] 
     };
   },
 
   componentWillMount() {
     // TODO: move to actions? actions.listenForUrlChange (event) => ...
+    // some kind of store watch mixin?
     window.addEventListener('message', (event) => {
       if (event.data != 'pushstate') return;
-      this.setState({ tracks: utils.getTracksFromUrl() });
+
+      let tracks = utils.getTracksFromUrl();
+
+      this.setState({ 
+        tracks: tracks,
+        currentTrack: !!tracks.length && tracks[tracks.length - 1]
+      });
     });
   },
 
   render() {
+    let { tracks, currentTrack } = this.state;
+    if (!!currentTrack) var { tones } = currentTrack;
+
     return (
       <div>
         <div className='layout-row'>
-          <Matrix className='layout-matrix-container'/>
-          <Tracks className='layout-tracks-container' tracks={this.state.tracks}/>
+          <Matrix className='layout-matrix-container' tones={tones}/>
+          <Tracks className='layout-tracks-container' tracks={tracks}/>
         </div>
         <div className='layout-row'>
           <MainMenu className='layout-main-menu-container'/>
