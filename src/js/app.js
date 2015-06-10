@@ -41,14 +41,5 @@ var App = React.createClass({
 });
 
 let container = document.getElementById('container'); 
-
-// var routes = (
-//   <Route name='main' path='/' handler={App}></Route>
-// )
-
-// Router.run(routes, Router.HistoryLocation, (Handler, state) => {
-//   React.render(<Handler params={state.params} query={state.query}/>, container);
-// });
-
 React.render(<App/>, container);
 

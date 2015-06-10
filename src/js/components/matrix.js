@@ -1,5 +1,6 @@
 import React from 'react'
 import Tone from 'components/tone'
+import propTypes from 'js/prop_types'
 import _ from 'underscore'
 
 var TableRow = React.createClass({
@@ -33,6 +34,10 @@ var Table = React.createClass({
 });
 
 var Matrix = React.createClass({
+  propTypes: {
+    track: propTypes.track.isRequired
+  },
+
   render() {
     return (
       <div className='matrix-container'>
