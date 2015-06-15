@@ -17,6 +17,11 @@ var actions = {
   addTrack() {
     let trackId = utils.generateTrackId();
     addFrag(trackId + '=0000000000000000000000000000000000000000000.');
+  },
+
+  navigateToTracks (tracks) {
+    let newUrlString = '?' + utils.tracksToUrlString(tracks);
+    navTo(newUrlString);
   }
 }
 

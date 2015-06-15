@@ -6,6 +6,7 @@ import Tracks from 'components/tracks'
 import Matrix from 'components/matrix'
 import MainMenu from 'components/main_menu'
 import utils from 'js/utils'
+import actions from 'js/actions'
 
 // let's call a track data
 // track = { id: string, tones: bin string, slots: bin string }
@@ -35,6 +36,17 @@ var App = React.createClass({
     });
   },
 
+  _onToneClick (toneId) {
+    let modifiedTrack = utils.toggleTone(toneId, this.state.currentTrack);
+
+    let newTracks = this.state.tracks.map( (track) => {
+      if (track.id != modifiedTrack.id) return track;
+      return modifiedTrack; 
+    });
+
+    actions.navigateToTracks(newTracks);
+  },
+
   render() {
     let { tracks, currentTrack } = this.state;
     if (!!currentTrack) var { tones } = currentTrack;
@@ -42,9 +54,18 @@ var App = React.createClass({
     return (
       <div>
         <div className='layout-row'>
-          <Matrix className='layout-matrix-container' tones={tones}/>
-          <Tracks className='layout-tracks-container' tracks={tracks}/>
+
+          <Matrix 
+            className='layout-matrix-container' 
+            tones={tones} 
+            onToneClick={this._onToneClick}/>
+
+          <Tracks 
+            className='layout-tracks-container' 
+            tracks={tracks}/>
+
         </div>
+
         <div className='layout-row'>
           <MainMenu className='layout-main-menu-container'/>
         </div>

@@ -5,12 +5,24 @@ import _ from 'underscore'
 
 var TableRow = React.createClass({
   propTypes: {
-    tones: propTypes.binaryString
+    tones: propTypes.binaryString,
+    onToneClick: React.PropTypes.func.isRequired,
+    id: React.PropTypes.number.isRequired
   },
 
   _generateRow() {
     return this.props.tones.split('').map( (tone, idx) => {
-      return <td key={`tone-${idx}`}><Tone tone={tone}/></td>;
+      // let id = this.props.id * idx;
+      let id = `${this.props.id}.${idx}`
+
+      return (
+        <td key={`tone-${idx}`}>
+          <Tone 
+            id={id} 
+            tone={tone} 
+            onClick={this.props.onToneClick}/>
+        </td>
+      );
     })
   },
 
@@ -21,7 +33,8 @@ var TableRow = React.createClass({
 
 var Table = React.createClass({
   propTypes: {
-    tones: propTypes.binaryString.isRequired
+    tones: propTypes.binaryString.isRequired,
+    onToneClick: React.PropTypes.func.isRequired
   },
 
   _generateTable() {
@@ -31,7 +44,11 @@ var Table = React.createClass({
       let startIdx = matrixLength * idx;
       let endIdx = matrixLength * (idx + 1);
       let rowTones = this.props.tones.split('').slice(startIdx, endIdx).join('');
-      return <TableRow key={`table-row-${idx}`} tones={rowTones}/>;
+      return <TableRow 
+        key={`table-row-${idx}`} 
+        tones={rowTones} 
+        onToneClick={this.props.onToneClick} 
+        id={idx}/>;
     })
   },
 
@@ -48,7 +65,8 @@ var Table = React.createClass({
 
 var Matrix = React.createClass({
   propTypes: {
-    tones: propTypes.binaryString
+    tones: propTypes.binaryString,
+    onToneClick: React.PropTypes.func.isRequired
   },
 
   componentWillMount() {
@@ -66,7 +84,7 @@ var Matrix = React.createClass({
 
     return (
       <div className='matrix-container'>
-        <Table tones={this.props.tones}/>
+        <Table tones={this.props.tones} onToneClick={this.props.onToneClick}/>
       </div>
     )
   }

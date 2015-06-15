@@ -100,6 +100,39 @@ function generateTrackId() {
   return newId;
 }
 
+function toggleTone (toneId, track) {
+  // toneId looks like 'row.column', ex. '5.2'
+  let [row, column] = toneId.split('.').map(str => { return parseInt(str) });
+
+  if (isNaN(row) || isNaN(column)) {
+    throw new Error('toggleTone(toneId: num.num, track: propTypes.track');
+  }
+
+  let index = (row * 16) + column;
+  let newTrack = _.clone(track);
+  let newTones = newTrack.tones.split('');
+  newTones[index] = track.tones[index] == '1' ? '0' : '1';
+  newTrack.tones = newTones.join('');
+  return newTrack;
+}
+
+function trackToUrlString (track) {
+  let str = '';
+  str += track.id + '=';
+  str += encode(track.tones);
+  str += '.'
+  str += encode(track.slots);
+  return str;
+}
+
+function tracksToUrlString (tracks) {
+  if (!_.isArray(tracks)) {
+    throw new Error('tracksToUrlString takes an array');
+  }
+
+  return tracks.map(trackToUrlString);
+}
+
 // TODO: Make tests for this
 // var edString = '111111000000';
 // console.log('edStrin:', edString);
@@ -109,6 +142,6 @@ function generateTrackId() {
 // console.log('decoded:', decodedString);
 // console.log('same:', edString == decodedString);
 
-let utils = { encode, decode, getTracksFromUrl, generateTrackId }
+let utils = { encode, decode, getTracksFromUrl, generateTrackId, toggleTone, tracksToUrlString }
 
 export default utils
