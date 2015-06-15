@@ -47,6 +47,18 @@ var App = React.createClass({
     actions.navigateToTracks(newTracks);
   },
 
+  _onNewTrack() {
+    actions.addTrack();
+  },
+
+  _onRemoveTrack (trackId) {
+    let newTracks = this.state.tracks.filter( (track) => {
+      return track.id != trackId;
+    });
+
+    actions.navigateToTracks(newTracks);
+  },
+
   render() {
     let { tracks, currentTrack } = this.state;
     if (!!currentTrack) var { tones } = currentTrack;
@@ -62,7 +74,9 @@ var App = React.createClass({
 
           <Tracks 
             className='layout-tracks-container' 
-            tracks={tracks}/>
+            tracks={tracks}
+            onNewTrack={this._onNewTrack}
+            onRemoveTrack={this._onRemoveTrack}/>
 
         </div>
 
