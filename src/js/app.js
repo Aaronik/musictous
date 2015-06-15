@@ -1,5 +1,6 @@
 var css = require('../styles/main.styl')
 
+import _ from 'underscore'
 import React from 'react'
 import Track from 'components/track'
 import Tracks from 'components/tracks'
@@ -36,7 +37,13 @@ var App = React.createClass({
     });
   },
 
-  _onToneClick (toneId) {
+  _setActiveTrack (trackId) {
+    let newCurrentTrack = _.findWhere(this.state.tracks, {id: trackId});
+    console.log(newCurrentTrack);
+    this.setState({ currentTrack: newCurrentTrack });
+  },
+
+  onToneClick (toneId) {
     let modifiedTrack = utils.toggleTone(toneId, this.state.currentTrack);
 
     let newTracks = this.state.tracks.map( (track) => {
@@ -47,16 +54,20 @@ var App = React.createClass({
     actions.navigateToTracks(newTracks);
   },
 
-  _onNewTrack() {
+  onNewTrack() {
     actions.addTrack();
   },
 
-  _onRemoveTrack (trackId) {
+  onRemoveTrack (trackId) {
     let newTracks = this.state.tracks.filter( (track) => {
       return track.id != trackId;
     });
 
     actions.navigateToTracks(newTracks);
+  },
+
+  onMiniMatrixClick (trackId) {
+    this._setActiveTrack(trackId);
   },
 
   render() {
@@ -70,13 +81,15 @@ var App = React.createClass({
           <Matrix 
             className='layout-matrix-container' 
             tones={tones} 
-            onToneClick={this._onToneClick}/>
+            onToneClick={this.onToneClick}/>
 
           <Tracks 
             className='layout-tracks-container' 
             tracks={tracks}
-            onNewTrack={this._onNewTrack}
-            onRemoveTrack={this._onRemoveTrack}/>
+            onNewTrack={this.onNewTrack}
+            onRemoveTrack={this.onRemoveTrack}
+            onMiniMatrixClick={this.onMiniMatrixClick}/>
+
 
         </div>
 

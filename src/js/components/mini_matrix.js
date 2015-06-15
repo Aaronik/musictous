@@ -1,13 +1,18 @@
 import React from 'react'
+import propTypes from 'js/prop_types'
 
 var MiniMatrix = React.createClass({
   propTypes: {
-    tones: React.PropTypes.string.isRequired
+    tones: propTypes.binaryString.isRequired,
+    onClick: React.PropTypes.func.isRequired
   },
 
   render() {
     return (
-      <div className='mini-matrix-container'></div>
+      <div 
+        onClick={this.props.onClick} 
+        className='mini-matrix-container'>
+      </div>
     )
   }
 });

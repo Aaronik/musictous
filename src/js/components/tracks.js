@@ -8,7 +8,8 @@ var Tracks = React.createClass({
   propTypes: {
     tracks: React.PropTypes.arrayOf(propTypes.track).isRequired,
     onNewTrack: React.PropTypes.func.isRequired,
-    onRemoveTrack: React.PropTypes.func.isRequired
+    onRemoveTrack: React.PropTypes.func.isRequired,
+    onMiniMatrixClick: React.PropTypes.func.isRequired
   },
 
   _renderTracks () {
@@ -19,6 +20,7 @@ var Tracks = React.createClass({
         id={id} 
         tones={tones} 
         slots={slots}
+        onMiniMatrixClick={this.props.onMiniMatrixClick}
         onRemoveTrack={this.props.onRemoveTrack}/>
     });
   },
