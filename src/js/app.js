@@ -12,6 +12,8 @@ import actions from 'js/actions'
 // let's call a track data
 // track = { id: string, tones: bin string, slots: bin string }
 
+console.log('parsing app')
+
 var App = React.createClass({
   getInitialState() {
     let tracks = utils.getTracksFromUrl();
@@ -23,6 +25,8 @@ var App = React.createClass({
   },
 
   componentWillMount() {
+    console.log('app will mount');
+
     // TODO: move to actions? actions.listenForUrlChange (event) => ...
     // some kind of store watch mixin?
     window.addEventListener('message', (event) => {
@@ -39,7 +43,7 @@ var App = React.createClass({
 
   _setActiveTrack (trackId) {
     let newCurrentTrack = _.findWhere(this.state.tracks, {id: trackId});
-    console.log(newCurrentTrack);
+    console.log('new curren track:', newCurrentTrack);
     this.setState({ currentTrack: newCurrentTrack });
   },
 
@@ -71,6 +75,8 @@ var App = React.createClass({
   },
 
   render() {
+    console.log('app rendering');
+
     let { tracks, currentTrack } = this.state;
     if (!!currentTrack) var { tones } = currentTrack;
 
@@ -102,5 +108,6 @@ var App = React.createClass({
 });
 
 let container = document.getElementById('container'); 
+console.log('rendering app')
 React.render(<App/>, container);
 
