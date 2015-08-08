@@ -14,19 +14,13 @@ var Track = React.createClass({
   },
 
   render() {
-    let { onMiniMatrixClick, id } = this.props;
+    let { onMiniMatrixClick, id, tones, onRemoveTrack, slots } = this.props;
 
     return (
       <div className='track-container'>
-
-        <MiniMatrix 
-          tones={this.props.tones}
-          onClick={onMiniMatrixClick.bind(null, id)}/>
-
-        <TrackBody slots={this.props.slots}/>
-        
-        <TrackRemoveButton 
-          onClick={this.props.onRemoveTrack.bind(null, this.props.id)}/>
+        <MiniMatrix tones={tones} onClick={onMiniMatrixClick.bind(null, id)}/>
+        <TrackBody slots={slots}/>
+        <TrackRemoveButton onClick={onRemoveTrack.bind(null, id)}/>
       </div>
     )
   }

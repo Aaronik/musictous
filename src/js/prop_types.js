@@ -20,7 +20,7 @@ function binaryStringValidator (props, propName, componentName) {
   }
 }
 
-// wrap in React.PropTypes for .isRequired
+// wrap in React.oneOfType for .isRequired
 var binaryString = React.PropTypes.oneOfType([binaryStringValidator]);
 
 var track = React.PropTypes.shape({
@@ -29,7 +29,10 @@ var track = React.PropTypes.shape({
   slots: binaryString
 });
 
+var bit = React.PropTypes.oneOfType(['1', '0']);
+
 export default {
   binaryString: binaryString,
-  track: track
+  track: track,
+  bit: bit
 }
