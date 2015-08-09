@@ -130,7 +130,7 @@ function tracksToUrlString (tracks) {
     throw new Error('tracksToUrlString takes an array');
   }
 
-  return tracks.map(trackToUrlString);
+  return tracks.map(trackToUrlString).join('&');
 }
 
 // TODO: Make tests for this
