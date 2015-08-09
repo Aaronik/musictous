@@ -47,8 +47,10 @@ var Table = React.createClass({
   },
 
   render() {
+    let { onClick } = this.props
+
     return (
-      <table className='mini-matrix-table'>
+      <table className='mini-matrix-table' onClick={onClick}>
         <tbody>
           {this._generateTable()}
         </tbody>
