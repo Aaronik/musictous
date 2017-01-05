@@ -42,6 +42,4 @@ var ClearAllButton = React.createClass({
   }
 });
 
-// export PlayButton
-// export PauseButton
 export { PlayButton, PauseButton, StopButton, ClearAllButton }
