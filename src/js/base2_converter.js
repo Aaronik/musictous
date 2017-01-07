@@ -5,6 +5,13 @@ const RADIX_CHARS = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW
 // TODO
 // * converge on chunk or byte
 // * converge on taking chunk size and hard coding it
+// * rename from base2_converter?
+
+// base2_converter
+// encode a string of binary to a base64, url safe
+// compressed string. Saves room on the URL bar,
+// no longer have giant 1's and 0's urls.
+//
 
 function base10ToBinary (num, chunkSize = 6) {
   // convert to binary
@@ -41,6 +48,10 @@ function chunkToBase10 (byte) {
   return parseInt(byte, 2);
 }
 
+// Encode a string of binary into a base 64 string.
+// Split binary into "chunks", bytes, then turn each
+// into a single base64 character. Mush them all together
+// and there you have it.
 function encode (binary) {
   let chunks = binaryToChunks(binary);
   let charIndices = chunks.map(chunkToBase10);
@@ -48,6 +59,7 @@ function encode (binary) {
   return chars.join('');
 }
 
+// Turn base64 string back into binary.
 function decode (basedNum, desiredNumBits = 256) {
   let basedNumArr = basedNum.split('');
   let basedNumIdxArr = basedNumArr.map( char => {
