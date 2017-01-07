@@ -1,13 +1,13 @@
 var css = require('../styles/main.styl')
 
-import _ from 'underscore'
-import React from 'react'
-import Track from 'components/track'
-import Tracks from 'components/tracks'
-import Matrix from 'components/matrix'
+import _        from 'underscore'
+import React    from 'react'
+import Track    from 'components/track'
+import Tracks   from 'components/tracks'
+import Matrix   from 'components/matrix'
 import MainMenu from 'components/main_menu'
-import utils from 'js/utils'
-import actions from 'js/actions'
+import utils    from 'js/utils'
+import actions  from 'js/actions'
 
 // let's call a track data
 // track = { id: string, tones: bin string, slots: bin string }
@@ -18,7 +18,7 @@ var App = React.createClass({
 
     return {
       tracks: tracks,
-      currentTrack: tracks[0] 
+      currentTrack: tracks[0]
     };
   },
 
@@ -30,7 +30,7 @@ var App = React.createClass({
 
       let tracks = utils.getTracksFromUrl();
 
-      this.setState({ 
+      this.setState({
         tracks: tracks,
         currentTrack: !!tracks.length && tracks[tracks.length - 1]
       });
@@ -47,7 +47,7 @@ var App = React.createClass({
 
     let newTracks = this.state.tracks.map( (track) => {
       if (track.id != modifiedTrack.id) return track;
-      return modifiedTrack; 
+      return modifiedTrack;
     });
 
     actions.navigateToTracks(newTracks);
@@ -77,13 +77,13 @@ var App = React.createClass({
       <div>
         <div className='layout-row'>
 
-          <Matrix 
-            className='layout-matrix-container' 
-            tones={tones} 
+          <Matrix
+            className='layout-matrix-container'
+            tones={tones}
             onToneClick={this.onToneClick}/>
 
-          <Tracks 
-            className='layout-tracks-container' 
+          <Tracks
+            className='layout-tracks-container'
             tracks={tracks}
             onNewTrack={this.onNewTrack}
             onRemoveTrack={this.onRemoveTrack}
@@ -100,6 +100,6 @@ var App = React.createClass({
   }
 });
 
-let container = document.getElementById('container'); 
+let container = document.getElementById('container');
 React.render(<App/>, container);
 
